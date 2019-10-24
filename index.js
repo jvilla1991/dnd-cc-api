@@ -2,6 +2,8 @@ let e = require('express');
 let nedb = require('nedb');
 let cors = require('cors');
 
+let configs = require('./configs');
+
 let users = new nedb({ filename: './data/users.db', autoload: true });
 let characters = new nedb({ filename: './data/characters.db', autoload: true });
 let characterDetails = new nedb({ filename: './data/characterDetails.db', autoload: true });
@@ -156,6 +158,6 @@ app.post('/character/:username/:character/update', (req, res) => {
     });
 });
 
-app.listen(1010, () => {
-    console.log(`Listening on port 1010.`);
+app.listen(configs.port, () => {
+    console.log(`Listening on port ${configs.port}.`);
 });
