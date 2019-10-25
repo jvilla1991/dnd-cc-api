@@ -1,6 +1,7 @@
 let e = require('express');
 let nedb = require('nedb');
 let cors = require('cors');
+let _ = require('lodash');
 
 let configs = require('./configs');
 
@@ -41,8 +42,11 @@ app.get('/user/:username', (req, res) => {
 // Create
 app.post('/user/:username/create', (req, res) => {
     let { username } = req.params;
+    let { passwordhash } = req.body;
 
-    users.insert({ username, passwordhash: 'abcde' }, (e, d) => {
+    console.log(req.body);
+
+    users.insert({ username, passwordhash: _.defaultTo(passwordhash, '') }, (e, d) => {
         res.json(d);
     });
 });
