@@ -16,15 +16,15 @@ app.use(e.json());
 app.use(cors());
 
 // Readiness
-routes(app);
+routes(app, {users});
 
 /// Users
 // Get all
-app.get('/users', (req, res) => {
+/*app.get('/users', (req, res) => {
     users.find({}, { passwordhash: 0 }, (e, d) => {
         res.json({ data: d });
     });
-});
+});*/
 
 // Get
 app.get('/user/:username', (req, res) => {
@@ -39,7 +39,7 @@ app.get('/user/:username', (req, res) => {
 });
 
 // Create
-app.post('/user/:username/create', (req, res) => {
+/*app.post('/user/:username/create', (req, res) => {
     let { username } = req.params;
     let { passwordhash } = req.body;
 
@@ -48,12 +48,12 @@ app.post('/user/:username/create', (req, res) => {
     users.insert({ username, passwordhash: _.defaultTo(passwordhash, '') }, (e, d) => {
         res.json(d);
     });
-});
+});*/
 
 // Update
-app.post('/user/:username/update', (req, res) => {
+/*app.post('/user/:username/update', (req, res) => {
     res.json('not implemented');
-});
+});*/
 
 /// Characters
 // Get all
