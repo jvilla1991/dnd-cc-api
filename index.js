@@ -3,6 +3,7 @@ let nedb = require('nedb');
 let cors = require('cors');
 let _ = require('lodash');
 
+let routes = require('./routes');
 let configs = require('./configs');
 
 let users = new nedb({ filename: './data/users.db', autoload: true });
@@ -15,9 +16,7 @@ app.use(e.json());
 app.use(cors());
 
 // Readiness
-app.get('/ping', (req, res) => {
-    res.json('pong');
-});
+routes(app);
 
 /// Users
 // Get all
