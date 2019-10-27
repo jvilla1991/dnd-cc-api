@@ -5,5 +5,5 @@ exports.ping = (req, res) => {
 }
 
 exports.get = (req, res, ds) => {
-    healthService.get(ds, (d) => { res.json(d) });
+    healthService.get(ds.health, (d) => { res.json(d) });
 }

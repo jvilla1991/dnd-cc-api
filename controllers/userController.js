@@ -6,14 +6,14 @@ exports.get = (req, res, ds) => {
 
 exports.getByUsername = (req, res, ds) => {
     let { username } = req.params;
-    userService.getByUsername(ds, username, (d) => { res.json(d) });
+    userService.getByUsername({username}, ds, (d) => { res.json(d) });
 }
 
 exports.create = (req, res, ds) => {
     let { username } = req.params;
     let { passwordhash } = req.body;
 
-    userService.createUser(ds, username, passwordhash, (d) => {
+    userService.createUser({username, passwordhash}, ds, (d) => {
         res.json(d);
     });
 };

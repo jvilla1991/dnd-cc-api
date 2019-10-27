@@ -6,8 +6,8 @@ let _ = require('lodash');
 let routes = require('./routes');
 let configs = require('./configs');
 
-let characters = new nedb({ filename: './data/characters.db', autoload: true });
-let characterDetails = new nedb({ filename: './data/characterDetails.db', autoload: true });
+//let characters = new nedb({ filename: './data/characters.db', autoload: true });
+//let characterDetails = new nedb({ filename: './data/characterDetails.db', autoload: true });
 
 // App
 let app = e();
@@ -19,7 +19,7 @@ routes(app);
 
 /// Characters
 // Get all
-app.post('/character/:username/characters', (req, res) => {
+/*app.post('/character/:username/characters', (req, res) => {
     let { username } = req.params;
     users.findOne({ username }, (e, d) => {
         if (e) {
@@ -121,7 +121,7 @@ app.post('/character/:username/:character/update', (req, res) => {
             });
         });
     });
-});
+});*/
 
 app.listen(configs.port, () => {
     console.log(`Listening on port ${configs.port}.`);
