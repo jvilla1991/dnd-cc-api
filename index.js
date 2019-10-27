@@ -6,7 +6,6 @@ let _ = require('lodash');
 let routes = require('./routes');
 let configs = require('./configs');
 
-let users = new nedb({ filename: './data/users.db', autoload: true });
 let characters = new nedb({ filename: './data/characters.db', autoload: true });
 let characterDetails = new nedb({ filename: './data/characterDetails.db', autoload: true });
 
@@ -16,44 +15,7 @@ app.use(e.json());
 app.use(cors());
 
 // Readiness
-routes(app, {users});
-
-/// Users
-// Get all
-/*app.get('/users', (req, res) => {
-    users.find({}, { passwordhash: 0 }, (e, d) => {
-        res.json({ data: d });
-    });
-});*/
-
-// Get
-app.get('/user/:username', (req, res) => {
-    let { username } = req.params;
-    users.find({ username }, { passwordhash: 0 }, (e, d) => {
-        if (e) {
-            res.json('error in user');
-            return;
-        }
-        res.json({ data: d });
-    })
-});
-
-// Create
-/*app.post('/user/:username/create', (req, res) => {
-    let { username } = req.params;
-    let { passwordhash } = req.body;
-
-    console.log(req.body);
-
-    users.insert({ username, passwordhash: _.defaultTo(passwordhash, '') }, (e, d) => {
-        res.json(d);
-    });
-});*/
-
-// Update
-/*app.post('/user/:username/update', (req, res) => {
-    res.json('not implemented');
-});*/
+routes(app);
 
 /// Characters
 // Get all
