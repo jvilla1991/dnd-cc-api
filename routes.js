@@ -47,4 +47,12 @@ module.exports = (app) => {
     app.route('/character/:username/:character')
         .get(NOT_IMPLEMENTED)
         .post((req, res) => { characterController.get(req, res, ds); });
+
+    app.route('/character/:username/:character/create')
+        .get(NOT_IMPLEMENTED)
+        .post((req, res) => { characterController.create(req, res, ds); });
+
+    app.route('/character/:username/:character/update')
+        .get(NOT_IMPLEMENTED)
+        .post((req, res) => { characterController.update(req, res, ds); });
 };
