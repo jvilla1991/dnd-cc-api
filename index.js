@@ -6,9 +6,6 @@ let _ = require('lodash');
 let routes = require('./routes');
 let configs = require('./configs');
 
-//let characters = new nedb({ filename: './data/characters.db', autoload: true });
-//let characterDetails = new nedb({ filename: './data/characterDetails.db', autoload: true });
-
 // App
 let app = e();
 app.use(e.json());
