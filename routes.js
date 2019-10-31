@@ -4,6 +4,8 @@ let healthController = require('./controllers/healthController');
 let userController = require('./controllers/userController');
 let characterController = require('./controllers/characterController');
 
+let testController = require('./controllers/testController');
+
 let NOT_IMPLEMENTED = (req, res) =>{
     res.json('not implemented');
 };
@@ -11,18 +13,19 @@ let NOT_IMPLEMENTED = (req, res) =>{
 module.exports = (app) => {
     // Datastore
     let ds = {
-        health: new nedb({ filename: './data/health.db', autoload: true }),
         users: new nedb({ filename: './data/users.db', autoload: true }),
         characters: new nedb({ filename: './data/characters.db', autoload: true }),
         characterDetails: new nedb({ filename: './data/characterDetails.db', autoload: true })
     };
 
+    let hc = new healthController();
+
     // Readiness
     app.route('/ping')
-        .get(healthController.ping);
+        .get(hc.ping);
 
     app.route('/health')
-        .get((req, res) => { healthController.get(req, res, ds) });
+        .get(hc.get);
     
     // User
     app.route('/users')
