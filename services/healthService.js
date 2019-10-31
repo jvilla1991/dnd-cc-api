@@ -1,7 +1,5 @@
 let nedb = require('nedb');
 
-let ds = new nedb({ filename: './data/health.db' });
-
 class HealthService {
     constructor() {
         this.ds = new nedb({ filename: './data/health.db', autoload: true });
@@ -19,6 +17,6 @@ class HealthService {
             cb(d);
         })
     }
-}
+};
 
 module.exports = HealthService;

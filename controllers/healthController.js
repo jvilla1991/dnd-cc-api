@@ -15,6 +15,6 @@ class HealthController {
     get(req, res) {
         this.healthService.get((d) => { res.json(d); });
     }
-}
+};
 
 module.exports = HealthController;

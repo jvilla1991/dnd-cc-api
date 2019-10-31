@@ -1,19 +1,31 @@
 let userService = require('../services/userService');
 
-exports.get = (req, res, ds) => {
-    userService.getAllUsers(ds, (d) => { res.json(d) });
-};
+class UserController {
+    constructor() {
+        this.userService = new userService();
 
-exports.getByUsername = (req, res, ds) => {
-    let { username } = req.params;
-    userService.getByUsername({username}, ds, (d) => { res.json(d) });
+        this.get = this.get.bind(this);
+        this.getByUsername = this.getByUsername.bind(this);
+        this.create = this.create.bind(this);
+    }
+
+    get(req, res) {
+        this.userService.getAllUsers((d) => { res.json(d); });
+    }
+
+    getByUsername(req, res) {
+        let { username } = req.params;
+        this.userService.getByUsername({username}, (d) => { res.json(d) });
+    }
+
+    create(req, res) {
+        let { username } = req.params;
+        let { passwordhash } = req.body;
+    
+        this.userService.createUser({username, passwordhash}, (d) => {
+            res.json(d);
+        });
+    }
 }
 
-exports.create = (req, res, ds) => {
-    let { username } = req.params;
-    let { passwordhash } = req.body;
-
-    userService.createUser({username, passwordhash}, ds, (d) => {
-        res.json(d);
-    });
-};
+module.exports = UserController;
