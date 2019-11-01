@@ -9,14 +9,9 @@ let NOT_IMPLEMENTED = (req, res) =>{
 };
 
 module.exports = (app) => {
-    // Datastore
-    let ds = {
-        characters: new nedb({ filename: './data/characters.db', autoload: true }),
-        characterDetails: new nedb({ filename: './data/characterDetails.db', autoload: true })
-    };
-
     let hc = new healthController();
     let uc = new userController();
+    let cc = new characterController();
 
     // Readiness
     app.route('/ping')
@@ -43,17 +38,17 @@ module.exports = (app) => {
     // Character
     app.route('/character/:username/characters')
         .get(NOT_IMPLEMENTED)
-        .post((req, res) => { characterController.getAll(req, res, ds); });
+        .post(cc.getAll);
 
     app.route('/character/:username/:character')
         .get(NOT_IMPLEMENTED)
-        .post((req, res) => { characterController.get(req, res, ds); });
+        .post(cc.get);
 
     app.route('/character/:username/:character/create')
         .get(NOT_IMPLEMENTED)
-        .post((req, res) => { characterController.create(req, res, ds); });
+        .post(cc.create);
 
     app.route('/character/:username/:character/update')
         .get(NOT_IMPLEMENTED)
-        .post((req, res) => { characterController.update(req, res, ds); });
+        .post(cc.update);
 };

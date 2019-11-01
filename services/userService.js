@@ -6,6 +6,7 @@ class UserService {
         this.ds = new nedb({ filename: './data/users.db' });
         this.ds.loadDatabase((e) => {
             // load user database
+            console.log('users.db ready');
         });
     }
 
@@ -14,7 +15,8 @@ class UserService {
     }
 
     getByUsername(params, cb) {
-        this.ds.findOne({ username: params.username }, { passwordhash: 0 }, (e, d) => { cb(d); });
+        let username = params.username;
+        this.ds.findOne({ username }, { passwordhash: 0 }, (e, d) => { cb(d); });
     }
 
     createUser(params, cb) {
