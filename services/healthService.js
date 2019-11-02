@@ -8,14 +8,20 @@ class HealthService {
         });
     }
 
-    ping(cb) {
-        cb('pong');
+    ping() {
+        return Promise.resolve('pong');
     }
 
-    get(cb) {
-        this.ds.find({}, (e, d) => {
-            cb(d);
-        })
+    get() {
+        return new Promise((resolve, reject) => {
+            this.ds.find({}, (e, d) => {
+                if (!e) {
+                    resolve(d);
+                } else {
+                    reject({ error: e, data: d });
+                }
+            });
+        });
     }
 };
 

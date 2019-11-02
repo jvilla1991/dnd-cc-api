@@ -9,11 +9,11 @@ class HealthController {
     }
 
     ping(req, res) {
-        this.healthService.ping((a) => { res.json(a); });
+        this.healthService.ping().then((a) => { res.json(a); });
     }
 
     get(req, res) {
-        this.healthService.get((d) => { res.json(d); });
+        this.healthService.get().then((d) => { res.json(d) });
     }
 };
 

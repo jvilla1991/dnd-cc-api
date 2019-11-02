@@ -14,17 +14,17 @@ class CharacterController {
 
     getAll(req, res) {
         let { username } = req.params;
-        this.userService.getByUsername({username}, (d) => {
-            this.charactersService.getAllByUserId({userid: d._id}, (d1) => { res.json(d1); });
+        this.userService.getByUsername({username}).then((d) => {
+            this.charactersService.getAllByUserId({userid: d._id}).then((d1) => { res.json(d1); });
         });
     }
 
     get(req, res) {
         let { username, character } = req.params;
     
-        this.userService.getByUsername({username}, (d) => {
-            this.charactersService.getByName({userid: d._id, name: character}, (d1) => {
-                this.charactersService.getDetails({characterid: d1._id}, (d2) => {
+        this.userService.getByUsername({username}).then((d) => {
+            this.charactersService.getByName({userid: d._id, name: character}).then((d1) => {
+                this.charactersService.getDetails({characterid: d1._id}).then((d2) => {
                     let c = {
                         character: d1,
                         characterDetails: d2
@@ -42,13 +42,13 @@ class CharacterController {
         let { username, character } = req.params;
         let { details } = req.body;
         
-        this.userService.getByUsername({username}, (d) => {
+        this.userService.getByUsername({username}).then((d) => {
             let params = {
                 userid: d._id,
                 name: character,
                 details
             };
-            this.charactersService.create(params, (d1) => { res.json({d, d1}); });
+            this.charactersService.create(params).then((d1) => { res.json({d, d1}); });
         });
         return;
     }
@@ -57,14 +57,14 @@ class CharacterController {
         let { username, character } = req.params;
         let { details } = req.body;
     
-        this.userService.getByUsername({username}, (d) => {
-            this.charactersService.getByName({userid: d._id, name: character}, (d1) => {
-                this.charactersService.getDetails({characterid: d1._id}, (d2) => {
+        this.userService.getByUsername({username}).then((d) => {
+            this.charactersService.getByName({userid: d._id, name: character}).then((d1) => {
+                this.charactersService.getDetails({characterid: d1._id}).then((d2) => {
                     let cD = {
                         characterid: d1._id,
                         ...details
                     };
-                    this.charactersService.updateDetails({id: d2._id, cD}, (d3) => {
+                    this.charactersService.updateDetails({id: d2._id, cD}).then((d3) => {
                         res.json(d3);
                     });
                 });

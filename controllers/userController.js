@@ -10,22 +10,22 @@ class UserController {
     }
 
     get(req, res) {
-        this.userService.getAllUsers((d) => { res.json(d); });
+        this.userService.getAllUsers().then((d) => { res.json(d); });
     }
 
     getByUsername(req, res) {
         let { username } = req.params;
-        this.userService.getByUsername({username}, (d) => { res.json(d) });
+        this.userService.getByUsername({username}).then((d) => { res.json(d) });
     }
 
     create(req, res) {
         let { username } = req.params;
         let { passwordhash } = req.body;
     
-        this.userService.createUser({username, passwordhash}, (d) => {
+        this.userService.createUser({username, passwordhash}).then((d) => {
             res.json(d);
         });
     }
-}
+};
 
 module.exports = UserController;
