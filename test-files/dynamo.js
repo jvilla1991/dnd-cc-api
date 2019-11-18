@@ -32,6 +32,10 @@ let Uparams = {
     }
 }
 
+let SCparams = {
+    TableName: 'User'
+}
+
 /*dynamodb.putItem(Iparams, (err, d) => {
     if (err) {
         console.log('error');
@@ -48,10 +52,18 @@ let Uparams = {
     console.log(d);
 });*/
 
-dynamodb.updateItem(Uparams, (err, d) => {
+/*dynamodb.updateItem(Uparams, (err, d) => {
     if (err) {
         console.log('error');
         throw err;
     }
     console.log(d);
-});
+});*/
+
+/*dynamodb.scan(SCparams, (err, d) => {
+    if (err) {
+        console.log('error');
+        throw err;
+    }
+    console.log(d);
+});*/
