@@ -1,22 +1,50 @@
 class Character {
     constructor(username, name, level, race, charclass, exp) {
-        this.username = username;
         this.name = name;
+        this.username = username;
         this.level = level;
         this.race = race;
         this.charclass = charclass;
         this.exp = exp;
     }
 
-    json() {
+    getName() {
+        return this.name;
+    }
+
+    getUsername() {
+        return this.username;
+    }
+
+    getLevel() {
+        return this.level;
+    }
+
+    getRace() {
+        return this.race;
+    }
+
+    getCharClass() {
+        return this.charclass;
+    }
+
+    getExp() {
+        return this.exp;
+    }
+
+    get() {
         return {
-            username: this.username,
-            name: this.name,
-            level: this.level,
-            race: this.race,
-            charclass: this.charclass,
-            exp: this.exp
+            name: this.getName(),
+            username: this.getUsername(),
+            level: this.getLevel(),
+            race: this.getRace(),
+            charclass: this.getCharClass(),
+            exp: this.getExp()
         };
+    }
+
+    json() {
+        return JSON.stringify(this.get());
     }
 };
 
