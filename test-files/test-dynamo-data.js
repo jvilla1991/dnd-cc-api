@@ -18,11 +18,11 @@ let testUserParams = {
 let testCharacterParams = {
     TableName: 'dnd-cc-d-character',
     Item: {
-        'name': {S: 'lollipop'},
+        'name': {S: 'ezylrb'},
         'username': {S: 'mhussain'},
         'level': {S: '1'},
-        'race': {S: 'human'},
-        'charclass': {S: 'cleric'},
+        'race': {S: 'half-elf'},
+        'charclass': {S: 'warlock'},
         'exp': {S: '1'}
     }
 }
@@ -65,4 +65,24 @@ dynamodb.putItem(testCharacterParams, (err, d) => {
         throw err;
     }
     console.log(d);
+});*/
+
+
+/*let params = {
+    TableName: 'dnd-cc-d-character',
+    FilterExpression: '#username = :u',
+    ExpressionAttributeNames: {
+        '#username': 'username'
+    },
+    ExpressionAttributeValues: {
+        ':u': {S: 'mhussain'}
+    }
+}
+
+dynamodb.scan(params, (e, d) => {
+    if (!e) {
+        console.log(d)
+    } else {
+        throw e;
+    }
 });*/

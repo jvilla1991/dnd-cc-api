@@ -1,4 +1,5 @@
 let nedb = require('nedb');
+let characterRepository = require('../repository/characterRepository');
 
 class CharacterService {
     constructor() {
@@ -14,6 +15,11 @@ class CharacterService {
             console.log('characterDetails.db ready');
             this.charDetailsDs.remove({}, { multi: true }, (e, numRemoved) => { });
         });
+    }
+
+    getAllByUsername(username) {
+        let cr = new characterRepository();
+        return cr.getAllByUsername(username);
     }
 
     getAllByUserId(params) {

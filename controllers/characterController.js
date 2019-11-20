@@ -14,8 +14,11 @@ class CharacterController {
 
     getAll(req, res) {
         let { username } = req.params;
-        this.userService.getByUsername({username}).then((d) => {
+        /*this.userService.getByUsername({username}).then((d) => {
             this.charactersService.getAllByUserId({userid: d._id}).then((d1) => { res.json(d1); });
+        });*/
+        this.charactersService.getAllByUsername(username).then((d) => {
+            res.json(d);
         });
     }
 
