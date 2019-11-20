@@ -1,11 +1,8 @@
-let nedb = require('nedb');
+let healthRepository = require('../repository/healthRepository');
 
 class HealthService {
     constructor() {
-        this.ds = new nedb({ filename: './data/health.db', autoload: true });
-        this.ds.loadDatabase((e) => {
-            this.ds.insert({status: 'starting'});
-        });
+        // can be removed
     }
 
     ping() {
@@ -13,15 +10,8 @@ class HealthService {
     }
 
     get() {
-        return new Promise((resolve, reject) => {
-            this.ds.find({}, (e, d) => {
-                if (!e) {
-                    resolve(d);
-                } else {
-                    reject({ error: e, data: d });
-                }
-            });
-        });
+        let hr = new healthRepository();
+        return hr.getAll();
     }
 };
 

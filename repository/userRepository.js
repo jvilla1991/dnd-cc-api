@@ -1,5 +1,6 @@
 let aws =  require('aws-sdk');
 let _ = require('lodash');
+
 let User = require('../models/User');
 
 class UserRepository {
@@ -12,7 +13,7 @@ class UserRepository {
     getAll() {
         let params = {
             TableName: this.table
-        }
+        };
 
         return new Promise((resolve, reject) => {
             let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
