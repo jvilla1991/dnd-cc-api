@@ -46,6 +46,27 @@ class UserRepository {
             });
         });
     }
+
+    insert(user) {
+        let params = {
+            TableName: this.table,
+            Item: {
+                'username': {S: user.getUsername()},
+                'passwordhash': {S: user.getPasswordHash()}
+            }
+        };
+
+        return new Promise((resolve, reject) => {
+            let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
+            dynamo.putItem(params, (e, d) => {
+                if (!e) {
+                    resolve(d);
+                } else {
+                    reject({ error: e, data: d });
+                }
+            })
+        })
+    }
 }
 
 module.exports = UserRepository;
