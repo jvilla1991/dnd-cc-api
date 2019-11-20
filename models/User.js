@@ -3,17 +3,12 @@ class User {
         this.username = username;
         this.passwordhash = passwordhash;
     }
-
-    constructor(params) {
-        this.username = params.username;
-        this.passwordhash = params.passwordhash;
-    }
-
+    
     json() {
-        return {
+        return JSON.stringify({
             username: this.username,
             passwordhash: this.passwordhash
-        };
+        });
     }
 };
 

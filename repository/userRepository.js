@@ -2,10 +2,11 @@ let aws =  require('aws-sdk');
 let _ = require('lodash');
 let User = require('../models/User');
 
-class userRepository {
+class UserRepository {
     constructor() {
         aws.config.update({ region: 'us-east-2' });
-        this.table = 'User';
+        this.table = 'dnd-cc-d-user';
+        this.searchKey = 'username';
     }
 
     getAll() {
@@ -14,8 +15,8 @@ class userRepository {
         }
 
         return new Promise((resolve, reject) => {
-            let dynamodb = new aws.DynamoDB({ apiVersion: '2012-08-10 '});
-            dynamodb.scan(params, (e, d) => {
+            let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
+            dynamo.scan(params, (e, d) => {
                 if (!e) {
                     resolve(_.map(d.Items, (i) => { return new User(i.username.S, i.passwordhash.S); }));
                 } else {
@@ -24,4 +25,27 @@ class userRepository {
             });
         });
     }
+
+    getByKey(key) {
+        let params = {
+            TableName: this.table,
+            Key: {
+                'username' : {S: key}
+            },
+            ProjectionExpression: 'username,passwordhash'
+        };
+
+        return new Promise((resolve, reject) => {
+            let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
+            dynamo.getItem(params, (e, d) => {
+                if (!e) {
+                    resolve(new User(d.Item.username.S, d.Item.passwordhash.S));
+                } else {
+                    reject({ error: e, data: d });
+                }
+            });
+        });
+    }
 }
+
+module.exports = UserRepository;

@@ -10,7 +10,7 @@ class UserController {
     }
 
     get(req, res) {
-        this.userService.getAllDynamoUsers().then((d) => { res.json(d); });
+        this.userService.getAllUsers().then((d) => { res.json(d); });
     }
 
     getByUsername(req, res) {

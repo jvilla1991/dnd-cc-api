@@ -16,9 +16,9 @@ let Iparams = {
 let Sparams = {
     TableName: 'User',
     Key: {
-        'userId': {S: '001'}
+        'username': {S: 'mhussain'}
     },
-    ProjectionExpression: 'userId,username,passwordhash'
+    ProjectionExpression: 'username,passwordhash'
 }
 
 let Uparams = {
@@ -35,6 +35,22 @@ let Uparams = {
 let SCparams = {
     TableName: 'User'
 }
+
+let p = {
+    TableName: 'dnd-cc-d-user',
+    Key: {
+        'username': {S: 'mhussain'}
+    },
+    ProjectionExpression: 'username,passwordhash'
+}
+
+dynamodb.getItem(p, (err, d) => {
+    if (err) {
+        console.log('error');
+        throw err;
+    }
+    console.log(d);
+});
 
 /*dynamodb.putItem(Iparams, (err, d) => {
     if (err) {
