@@ -1,11 +1,13 @@
 let aws = require('aws-sdk');
 let _ = require('lodash');
 
+let configs = require('../configs');
+
 let Character = require('../models/Character');
 
 class CharacterRepository {
     constructor() {
-        aws.config.update({ region: 'us-east-2' });
+        aws.config.update({ region: configs.aws.region });
         this.table = 'dnd-cc-d-character';
         this.searchKey = 'name';
     }

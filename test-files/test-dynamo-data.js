@@ -1,7 +1,7 @@
 let aws = require('aws-sdk');
 let User = require('../models/User');
 
-aws.config.update({ region: 'us-east-2' });
+aws.config.update({ region: 'us-east-1' });
 
 let dynamodb = new aws.DynamoDB({apiVersion: '2012-08-10'});
 
@@ -18,11 +18,11 @@ let testUserParams = {
 let testCharacterParams = {
     TableName: 'dnd-cc-d-character',
     Item: {
-        'name': {S: 'ezylrb'},
+        'name': {S: 'lollipop'},
         'username': {S: 'mhussain'},
         'level': {S: '1'},
-        'race': {S: 'half-elf'},
-        'charclass': {S: 'warlock'},
+        'race': {S: 'human'},
+        'charclass': {S: 'cleric'},
         'exp': {S: '1'}
     }
 }

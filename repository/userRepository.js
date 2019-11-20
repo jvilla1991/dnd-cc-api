@@ -1,11 +1,13 @@
 let aws =  require('aws-sdk');
 let _ = require('lodash');
 
+let configs = require('../configs');
+
 let User = require('../models/User');
 
 class UserRepository {
     constructor() {
-        aws.config.update({ region: 'us-east-2' });
+        aws.config.update({ region: configs.aws.region });
         this.table = 'dnd-cc-d-user';
         this.searchKey = 'username';
     }
