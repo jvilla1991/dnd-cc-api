@@ -42,13 +42,16 @@ module.exports = (app) => {
 
     app.route('/character/:username/:character')
         .get(NOT_IMPLEMENTED)
-        .post(cc.get);
+        //.post(cc.get);
+        .post(NOT_IMPLEMENTED);
 
     app.route('/character/:username/:character/create')
         .get(NOT_IMPLEMENTED)
-        .post(cc.create);
+        //.post(cc.create);
+        .post(NOT_IMPLEMENTED);
 
     app.route('/character/:username/:character/update')
         .get(NOT_IMPLEMENTED)
-        .post(cc.update);
+        //.post(cc.update);
+        .post(NOT_IMPLEMENTED);
 };

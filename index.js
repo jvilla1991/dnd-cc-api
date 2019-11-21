@@ -18,13 +18,14 @@ routes(app);
 // Setup Health
 let healthRepository = require('./repository/healthRepository');
 let Health = require('./models/Health');
+let session = new Health(uuid(), 'dnd-cc', 'healthy', 'Successfully inserted health record')
 
 let hr = new healthRepository();
 
 hr.deleteAll().then((a) => {
-    hr.insert(new Health(uuid(), 'dnd-cc', 'healthy', 'Successfully inserted health record'));
-});
-
-app.listen(configs.port, () => {
-    console.log(`Listening on port ${configs.port}.`);
+    hr.insert(session).then((d) => {
+        app.listen(configs.port, () => {
+            console.log(`Listening on port [${configs.port}]\nSession uuid [${session.getSession()}]\nHealth: ${session.json()}`);
+        });
+    });
 });

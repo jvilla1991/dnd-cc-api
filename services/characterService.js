@@ -3,18 +3,7 @@ let characterRepository = require('../repository/characterRepository');
 
 class CharacterService {
     constructor() {
-        this.charDs = new nedb({ filename: './data/characters.db' });
-        this.charDetailsDs = new nedb({ filename: './data/characterDetails.db' });
-        this.charDs.loadDatabase((e) => {
-            // load character database
-            console.log('characters.db ready');
-            this.charDs.remove({}, { multi: true }, (e, numRemoved) => { });
-        });
-        this.charDetailsDs.loadDatabase((e) => {
-            // load character details database
-            console.log('characterDetails.db ready');
-            this.charDetailsDs.remove({}, { multi: true }, (e, numRemoved) => { });
-        });
+        // can be removed
     }
 
     getAllByUsername(username) {
