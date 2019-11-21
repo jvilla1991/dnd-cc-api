@@ -2,6 +2,7 @@ let e = require('express');
 let nedb = require('nedb');
 let cors = require('cors');
 let _ = require('lodash');
+let uuid = require('uuid/v1');
 
 let routes = require('./routes');
 let configs = require('./configs');
@@ -21,7 +22,7 @@ let Health = require('./models/Health');
 let hr = new healthRepository();
 
 hr.deleteAll().then((a) => {
-    hr.insert(new Health('dnobbo', 'dnd-cc', 'healthy', 'Successfully inserted health record'));
+    hr.insert(new Health(uuid(), 'dnd-cc', 'healthy', 'Successfully inserted health record'));
 });
 
 app.listen(configs.port, () => {
