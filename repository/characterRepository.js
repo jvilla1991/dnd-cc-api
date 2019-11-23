@@ -53,7 +53,7 @@ class CharacterRepository {
         let params = {
             TableName: this.table,
             ExpressionAttributeNames: {
-                '#username': 'username'
+                '#username': 'c_username'
             },
             ExpressionAttributeValues: {
                 ':u': {S: username}
