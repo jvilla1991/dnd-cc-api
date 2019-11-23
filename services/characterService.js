@@ -24,17 +24,12 @@ class CharacterService {
         return cr.insert(char);
     }
 
-    /*updateDetails(params, cb) {
-        return new Promise((resolve, reject) => {
-            this.charDetailsDs.update({_id: params.id}, params.cD, (e, d) => {
-                if (!e) {
-                    resolve(d);
-                } else {
-                    reject({ error: e, data: d });
-                }
-            });
-        });
-    }*/
+    update(username, name, details) {
+        let char = new Character(username, name, details.level, details.race, details.charclass, details.exp);
+
+        let cr = new characterRepository();
+        return cr.update(char);
+    }
 };
 
 module.exports = CharacterService;

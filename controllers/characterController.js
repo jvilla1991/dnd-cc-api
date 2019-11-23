@@ -9,7 +9,7 @@ class CharacterController {
         this.getAll = this.getAll.bind(this);
         this.get = this.get.bind(this);
         this.create = this.create.bind(this);
-        /*this.update = this.update.bind(this);*/
+        this.update = this.update.bind(this);
     }
 
     getAll(req, res) {
@@ -38,24 +38,12 @@ class CharacterController {
         return;
     }
 
-    /*update(req, res) {
+    update(req, res) {
         let { username, character } = req.params;
-        let { details } = req.body;
+        let details = req.body;
     
-        this.userService.getByUsername({username}).then((d) => {
-            this.charactersService.getByName({userid: d._id, name: character}).then((d1) => {
-                this.charactersService.getDetails({characterid: d1._id}).then((d2) => {
-                    let cD = {
-                        characterid: d1._id,
-                        ...details
-                    };
-                    this.charactersService.updateDetails({id: d2._id, cD}).then((d3) => {
-                        res.json(d3);
-                    });
-                });
-            });
-        });
-    }*/
+        this.charactersService.update(username, character, details).then((d) => { res.json(d); });
+    }
 };
 
 module.exports = CharacterController;

@@ -18,12 +18,12 @@ let testUserParams = {
 let testCharacterParams = {
     TableName: 'dnd-cc-d-character',
     Item: {
-        'name': {S: 'zyxnrid'},
-        'username': {S: 'jvilla'},
-        'level': {S: '1'},
-        'race': {S: 'half-elf'},
-        'charclass': {S: 'wizard'},
-        'exp': {S: '1'}
+        'name': {S: 'lollipop'},
+        'c_username': {S: 'mhussain'},
+        'c_level': {S: '1'},
+        'c_race': {S: 'human'},
+        'c_charclass': {S: 'cleric'},
+        'c_exp': {S: '1'}
     }
 }
 

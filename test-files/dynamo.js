@@ -36,20 +36,24 @@ let SCparams = {
     TableName: 'User'
 }
 
-let p = {
+let params = {
     TableName: 'dnd-cc-d-character',
     Key: {
-        'name': {S: 'ezylrb'}
+        'name': {S: 'sykes'}
+    },
+    UpdateExpression: 'SET \'level\' = :l',
+    ExpressionAttributeValues: {
+        ':l': {S: '2'}
     }
-}
+};
 
-dynamodb.getItem(p, (err, d) => {
+/*dynamodb.getItem(p, (err, d) => {
     if (err) {
         console.log('error');
         throw err;
     }
     console.log(d);
-});
+});*/
 
 /*dynamodb.putItem(Iparams, (err, d) => {
     if (err) {
@@ -67,13 +71,13 @@ dynamodb.getItem(p, (err, d) => {
     console.log(d);
 });*/
 
-/*dynamodb.updateItem(Uparams, (err, d) => {
+dynamodb.updateItem(params, (err, d) => {
     if (err) {
         console.log('error');
         throw err;
     }
     console.log(d);
-});*/
+});
 
 /*dynamodb.scan(SCparams, (err, d) => {
     if (err) {

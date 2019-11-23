@@ -78,11 +78,11 @@ class CharacterRepository {
             TableName: this.table,
             Item: {
                 'name': {S: character.getName()},
-                'username': {S: character.getUsername()},
-                'level': {S: character.getLevel()},
-                'race': {S: character.getRace()},
-                'charclass': {S: character.getCharClass()},
-                'exp': {S: character.getExp()}
+                'c_username': {S: character.getUsername()},
+                'c_level': {S: character.getLevel()},
+                'c_race': {S: character.getRace()},
+                'c_charclass': {S: character.getCharClass()},
+                'c_exp': {S: character.getExp()}
             }
         };
 
@@ -104,12 +104,12 @@ class CharacterRepository {
             Key: {
                 'name': {S: character.getName()}
             },
-            UpdateExpression: 'SET username = :username, level = :level, race = :race, charclass = :charclass, exp = :exp',
+            UpdateExpression: 'SET c_username = :username, c_level = :level, c_race = :race, c_charclass = :charclass, c_exp = :exp',
             ExpressionAttributeValues: {
                 ':username': {S: character.getUsername()},
                 ':level': {S: character.getLevel()},
                 ':race': {S: character.getRace()},
-                ':charclass': {S: character.charclass()},
+                ':charclass': {S: character.getCharClass()},
                 ':exp': {S: character.getExp()}
             }
         };
