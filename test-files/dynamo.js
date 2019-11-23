@@ -1,6 +1,6 @@
 let aws = require('aws-sdk');
 
-aws.config.update({ region: 'us-east-2' });
+aws.config.update({ region: 'us-east-1' });
 
 let dynamodb = new aws.DynamoDB({apiVersion: '2012-08-10'});
 
@@ -37,11 +37,10 @@ let SCparams = {
 }
 
 let p = {
-    TableName: 'dnd-cc-d-user',
+    TableName: 'dnd-cc-d-character',
     Key: {
-        'username': {S: 'mhussain'}
-    },
-    ProjectionExpression: 'username,passwordhash'
+        'name': {S: 'ezylrb'}
+    }
 }
 
 dynamodb.getItem(p, (err, d) => {

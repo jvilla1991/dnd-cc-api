@@ -1,5 +1,6 @@
-let nedb = require('nedb');
 let characterRepository = require('../repository/characterRepository');
+
+let Character = require('../models/Character');
 
 class CharacterService {
     constructor() {
@@ -11,70 +12,19 @@ class CharacterService {
         return cr.getAllByUsername(username);
     }
 
-    getAllByUserId(params) {
-        return new Promise((resolve, reject) => {
-            this.charDs.find({ userid: params.userid }, (e, d) => {
-                if (!e) {
-                    resolve(d);
-                } else {
-                    reject({ error: e, data: d });
-                }
-            });
-        });
+    getByName(name) {
+        let cr = new characterRepository();
+        return cr.getByKey(name);
     }
 
-    getByName(params) {
-        return new Promise((resolve, reject) => {
-            this.charDs.findOne({userid: params.userid, name: params.name}, (e, d) => {
-                if (!e) {
-                    resolve(d);
-                } else {
-                    reject({ error: e, data: d });
-                }
-            });
-        });
+    create(username, name, details) {
+        let char = new Character(username, name, details.level, details.race, details.charclass, details.exp);
+
+        let cr = new characterRepository();
+        return cr.insert(char);
     }
 
-    getDetails(params) {
-        return new Promise((resolve, reject) => {
-            this.charDetailsDs.findOne({characterid: params.characterid}, (e, d) => {
-                if (!e) {
-                    resolve(d);
-                } else {
-                    reject({ error: e, data: d });
-                }
-            });
-        });
-    }
-
-    create(params) {
-        let c = {
-            userid: params.userid,
-            name: params.name
-        };
-
-        return new Promise((resolve, reject) => {
-            this.charDs.insert(c, (e, d) => {
-                if (e) {
-                    reject({ error: e, data: d });
-                    return;
-                }
-                let cD = {
-                    characterid: d._id,
-                    ...params.details
-                }
-                this.charDetailsDs.insert(cD, (e, d1) => {
-                    if (e) {
-                        reject({ error: e, data: d });
-                    } else {
-                        resolve(d1);
-                    }
-                });
-            });
-        });
-    }
-
-    updateDetails(params, cb) {
+    /*updateDetails(params, cb) {
         return new Promise((resolve, reject) => {
             this.charDetailsDs.update({_id: params.id}, params.cD, (e, d) => {
                 if (!e) {
@@ -84,7 +34,7 @@ class CharacterService {
                 }
             });
         });
-    }
+    }*/
 };
 
 module.exports = CharacterService;

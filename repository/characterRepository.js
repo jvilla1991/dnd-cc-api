@@ -20,10 +20,30 @@ class CharacterRepository {
         return new Promise((resolve, reject) => {
             let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
             dynamo.scan(params, (e, d) => {
-                if (!e) {
+                if (!e && d.Items) {
                     resolve(_.map(d.Items, (i) => { return new Character(i.name.S, i.username.S, i.level.S, i.race.S, i.charclass.S, i.exp.S); }));
                 } else {
                     reject({ error: e, data: d });
+                }
+            });
+        });
+    }
+
+    getByKey(key) {
+        let params = {
+            TableName: this.table,
+            Key: {
+                'name': {S: key}
+            }
+        };
+
+        return new Promise((resolve, reject) => {
+            let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
+            dynamo.getItem(params, (e, d) => {
+                if (!e && d.Item) {
+                    resolve(new Character(d.Item.name.S, d.Item.username.S, d.Item.level.S, d.Item.race.S, d.Item.charclass.S, d.Item.exp.S));
+                } else {
+                    reject(e, d);
                 }
             });
         });
@@ -44,10 +64,63 @@ class CharacterRepository {
         return new Promise((resolve, reject) => {
             let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
             dynamo.scan(params, (e, d) => {
-                if (!e) {
+                if (!e && d.Items) {
                     resolve(_.map(d.Items, (i) => { return new Character(i.name.S, i.username.S, i.level.S, i.race.S, i.charclass.S, i.exp.S); }));
                 } else {
                     reject({ error: e, data: d });
+                }
+            });
+        });
+    }
+
+    insert(character) {
+        let params = {
+            TableName: this.table,
+            Item: {
+                'name': {S: character.getName()},
+                'username': {S: character.getUsername()},
+                'level': {S: character.getLevel()},
+                'race': {S: character.getRace()},
+                'charclass': {S: character.getCharClass()},
+                'exp': {S: character.getExp()}
+            }
+        };
+
+        return new Promise((resolve, reject) => {
+            let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
+            dynamo.putItem(params, (e, d) => {
+                if (!e) {
+                    resolve(character);
+                } else {
+                    reject(e, d);
+                }
+            });
+        });
+    }
+
+    update(character) {
+        let params = {
+            TableName: this.table,
+            Key: {
+                'name': {S: character.getName()}
+            },
+            UpdateExpression: 'SET username = :username, level = :level, race = :race, charclass = :charclass, exp = :exp',
+            ExpressionAttributeValues: {
+                ':username': {S: character.getUsername()},
+                ':level': {S: character.getLevel()},
+                ':race': {S: character.getRace()},
+                ':charclass': {S: character.charclass()},
+                ':exp': {S: character.getExp()}
+            }
+        };
+
+        return new Promise((resolve, reject) => {
+            let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
+            dynamo.updateItem(params, (e, d) => {
+                if (!e) {
+                    resolve(character);
+                } else {
+                    reject(e, d);
                 }
             });
         });

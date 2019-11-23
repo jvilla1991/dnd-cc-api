@@ -9,14 +9,12 @@ class CharacterController {
         this.getAll = this.getAll.bind(this);
         this.get = this.get.bind(this);
         this.create = this.create.bind(this);
-        this.update = this.update.bind(this);
+        /*this.update = this.update.bind(this);*/
     }
 
     getAll(req, res) {
         let { username } = req.params;
-        /*this.userService.getByUsername({username}).then((d) => {
-            this.charactersService.getAllByUserId({userid: d._id}).then((d1) => { res.json(d1); });
-        });*/
+        
         this.charactersService.getAllByUsername(username).then((d) => {
             res.json(d);
         });
@@ -26,37 +24,21 @@ class CharacterController {
         let { username, character } = req.params;
     
         this.userService.getByUsername({username}).then((d) => {
-            this.charactersService.getByName({userid: d._id, name: character}).then((d1) => {
-                this.charactersService.getDetails({characterid: d1._id}).then((d2) => {
-                    let c = {
-                        character: d1,
-                        characterDetails: d2
-                    }
-    
-                    res.json(c);
-                });
-                return;
+            this.charactersService.getByName(character).then((d1) => {
+                res.json(d1);
             });
-            return;
         });
     }
 
     create(req, res) {
         let { username, character } = req.params;
-        let { details } = req.body;
-        
-        this.userService.getByUsername({username}).then((d) => {
-            let params = {
-                userid: d._id,
-                name: character,
-                details
-            };
-            this.charactersService.create(params).then((d1) => { res.json({d, d1}); });
-        });
+        let details = req.body;
+
+        this.charactersService.create(username, character, details).then((d1) => { res.json(d1); });
         return;
     }
 
-    update(req, res) {
+    /*update(req, res) {
         let { username, character } = req.params;
         let { details } = req.body;
     
@@ -73,7 +55,7 @@ class CharacterController {
                 });
             });
         });
-    }
+    }*/
 };
 
 module.exports = CharacterController;

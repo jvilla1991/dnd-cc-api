@@ -67,8 +67,8 @@ class UserRepository {
                 } else {
                     reject({ error: e, data: d });
                 }
-            })
-        })
+            });
+        });
     }
 }
 
