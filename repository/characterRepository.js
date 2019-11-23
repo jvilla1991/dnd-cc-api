@@ -21,7 +21,7 @@ class CharacterRepository {
             let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
             dynamo.scan(params, (e, d) => {
                 if (!e && d.Items) {
-                    resolve(_.map(d.Items, (i) => { return new Character(i.name.S, i.username.S, i.level.S, i.race.S, i.charclass.S, i.exp.S); }));
+                    resolve(_.map(d.Items, (i) => { return new Character(i.name.S, i.c_username.S, i.c_level.S, i.c_race.S, i.c_charclass.S, i.c_exp.S); }));
                 } else {
                     reject({ error: e, data: d });
                 }
@@ -41,7 +41,8 @@ class CharacterRepository {
             let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
             dynamo.getItem(params, (e, d) => {
                 if (!e && d.Item) {
-                    resolve(new Character(d.Item.name.S, d.Item.username.S, d.Item.level.S, d.Item.race.S, d.Item.charclass.S, d.Item.exp.S));
+                    console.log(d);
+                    resolve(new Character(d.Item.name.S, d.Item.c_username.S, d.Item.c_level.S, d.Item.c_race.S, d.Item.c_charclass.S, d.Item.c_exp.S));
                 } else {
                     reject(e, d);
                 }
@@ -65,7 +66,8 @@ class CharacterRepository {
             let dynamo = new aws.DynamoDB({ apiVersion: '2012-08-10' });
             dynamo.scan(params, (e, d) => {
                 if (!e && d.Items) {
-                    resolve(_.map(d.Items, (i) => { return new Character(i.name.S, i.username.S, i.level.S, i.race.S, i.charclass.S, i.exp.S); }));
+                    console.log(d);
+                    resolve(_.map(d.Items, (i) => { return new Character(i.name.S, i.c_username.S, i.c_level.S, i.c_race.S, i.c_charclass.S, i.c_exp.S); }));
                 } else {
                     reject({ error: e, data: d });
                 }
